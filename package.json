@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.9.0",
-    "request": "^2.67.0"
+    "request": "^2.67.0",
+    "require-yml": "^1.1.3"
   }
 }

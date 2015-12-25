@@ -2,7 +2,6 @@
 
 var program = require('commander');
 var request = require('request');
-var context = {};
 
 program
   .version('0.0.1')
@@ -24,20 +23,18 @@ if (!program.id) {
 request
   .get(`http://service.treation.com/api/v1/tables/${program.id}.json?table_token=${program.token}`, function(err, response, body){
     if (err) {
-      console.error(err);
+      return console.error(err);
     }
     body = JSON.parse(body);
 
     if (body.message) {
-      console.error(body.message);
+      return console.error(body.message);
     }
-
-    context.data = body.table
 
     var args = program.data.split(',');
     var cells = {};
 
-    context.data.columns.forEach(function(column, i){
+    body.table.columns.forEach(function(column, i){
       cells[column.id] = args[i];
     })
 
@@ -51,7 +48,7 @@ request
         json: true
       }, function(err, response, body){
         if (err) {
-          console.error(err);
+          return console.error(err);
         }
         console.log('sucess added!');
       })
